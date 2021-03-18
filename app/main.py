@@ -10,5 +10,5 @@ CORS(app)
 def test():
     return jsonify({
         'success': True,
-        'action': 'HelloWorld'
+        'action': 'Hello World'
     })
