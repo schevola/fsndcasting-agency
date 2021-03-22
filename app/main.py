@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from auth.auth import authRequired, AuthnError
+from app.auth.auth import authRequired, AuthnError
 
 app = Flask(__name__)
 CORS(app)
