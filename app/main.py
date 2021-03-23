@@ -1,12 +1,14 @@
+import sys
+
 from flask import Flask, request, abort, jsonify
-from flask_cors import CORS
+from sqlalchemy.exc import IntegrityError
+
 from app.auth.auth import authRequired, AuthnError
 from app.database.models import setup_db, Actor, Movie
 
 
 app = Flask(__name__)
 setup_db(app)
-CORS(app)
 
 
 @app.route('/', methods=['GET'])
@@ -38,7 +40,7 @@ def addActors(payload):
     newActor.gender = requestBody['gender']
     try:
         newActor.add()
-    except:
+    except IntegrityError:
         abort(409)
     return jsonify({
         'success': True,
@@ -51,7 +53,7 @@ def addActors(payload):
 def updateActors(payload, actorId):
     requestBody = request.json
     actor = Actor.query.get(actorId)
-    if None == actor:
+    if actor is None:
         abort(404)
     if 'name' in requestBody.keys():
         actor.name = requestBody['name']
@@ -61,7 +63,7 @@ def updateActors(payload, actorId):
         actor.gender = requestBody['gender']
     try:
         actor.update()
-    except:
+    except IntegrityError:
         abort(409)
     return jsonify({
         'success': True,
@@ -71,19 +73,18 @@ def updateActors(payload, actorId):
 
 @app.route('/actors/<int:actorId>', methods=['DELETE'])
 @authRequired(permission='delete:actors')
-def deleteActors(payload,actorId):
+def deleteActors(payload, actorId):
     actor = Actor.query.get(actorId)
-    if None == actor:
+    if actor is None:
         abort(404)
     try:
         actor.delete()
-    except:
+    except IntegrityError:
         abort(409)
     return jsonify({
         'success': True,
         'actorId': actorId
     })
-
 
 
 @app.route('/movies', methods=['GET'])
@@ -106,7 +107,7 @@ def addMovies(payload):
     newMovie.releaseDate = requestBody['releaseDate']
     try:
         newMovie.add()
-    except:
+    except IntegrityError:
         abort(409)
     return jsonify({
         'success': True,
@@ -119,7 +120,7 @@ def addMovies(payload):
 def updateMovies(payload, movieId):
     requestBody = request.json
     movie = Movie.query.get(movieId)
-    if None == movie:
+    if movie is None:
         abort(404)
     if 'title' in requestBody.keys():
         movie.title = requestBody['title']
@@ -127,7 +128,7 @@ def updateMovies(payload, movieId):
         movie.releaseDate = requestBody['releaseDate']
     try:
         movie.update()
-    except:
+    except IntegrityError:
         abort(409)
     return jsonify({
         'success': True,
@@ -139,28 +140,27 @@ def updateMovies(payload, movieId):
 @authRequired(permission='delete:movies')
 def deleteMovies(payload, movieId):
     movie = Movie.query.get(movieId)
-    if None == movie:
+    if None is movie:
         abort(404)
     try:
         movie.delete()
-    except:
+    except IntegrityError:
         abort(409)
     return jsonify({
         'success': True,
         'movieId': movieId
     })
 
+
 def validateActorBody(body):
-    if "name" not in body.keys() or "age" not in body.keys() or "gender" not in body.keys():
+    if "name" not in body.keys() or "age" not in body.keys() or \
+            "gender" not in body.keys():
         abort(400)
+
 
 def validateMovieBody(body):
     if "title" not in body.keys() or "releaseDate" not in body.keys():
         abort(400)
-
-
-
-
 
 
 @app.errorhandler(AuthnError)
@@ -170,12 +170,14 @@ def auth_error_handler(auth_error):
         "errorCode": auth_error.error['code']
     }), 401
 
+
 @app.errorhandler(409)
 def databaseError(error):
     return jsonify({
         "success": False,
         "errorCode": "DataBase insert error"
     }), 409
+
 
 @app.errorhandler(400)
 def databaseError(error):
@@ -184,6 +186,7 @@ def databaseError(error):
         "errorCode": "Invalid Request"
     }), 400
 
+
 @app.errorhandler(404)
 def databaseError(error):
     return jsonify({
@@ -191,10 +194,10 @@ def databaseError(error):
         "errorCode": "Resource Not Found"
     }), 404
 
+
 @app.errorhandler(401)
 def unAuthorized(error):
     return jsonify({
         "success": False,
         "errorCode": "Authorization Required"
     }), 401
-

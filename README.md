@@ -1,7 +1,8 @@
 # Casting Agency
 
-##Introduction
+##Introduction(Motivation)
 Casting Agency is an application that will facilitate the organization of movie production, and casting talent.
+Making it quicker and easier to find talen to fill rolls for up and coming movies.
 
 ## Getting Started
 

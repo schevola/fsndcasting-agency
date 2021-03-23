@@ -8,11 +8,13 @@ database_path = "sqlite:///{}".format(os.path.join(project_dir, database_file))
 
 db = SQLAlchemy()
 
+
 def setup_db(app):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
+
 
 def addTestData():
     print("adding")
@@ -59,6 +61,7 @@ def deleteTestData():
     movie.delete()
     movie = Movie.query.filter_by(title="samasdfMovie").first()
     movie.delete()
+
 
 def resetDb():
     print("reseting")
@@ -114,9 +117,3 @@ class Actor(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-
-
-
-
-
-

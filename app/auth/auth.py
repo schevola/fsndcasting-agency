@@ -1,12 +1,15 @@
 import json
+import os
+
 from flask import request
 from functools import wraps
 from jose import jwt, JWTError
 from urllib.request import urlopen
 
-AUTH0_DOMAIN = 'schevola-coffee-shop.us.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'castingAgency'
+AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN')
+ALGORITHMS = os.environ.get('ALGORITHMS')
+API_AUDIENCE = os.environ.get('API_AUDIENCE')
+
 
 class AuthnError(Exception):
     def __init__(self, error, status_code):
@@ -29,7 +32,8 @@ def validate_auth_header(authHeader):
 
 
 def check_permissions(permission, payload):
-    if payload.get('permissions') is not None and permission in payload.get('permissions'):
+    if payload.get('permissions') is not None and \
+            permission in payload.get('permissions'):
         return True
     raise AuthnError({"code": "Invalid_Permissions",
                      "description": "Valid Permissions Expected"}, 401)
@@ -84,7 +88,8 @@ def verify_decode_jwt(token):
         except jwt.JWTClaimsError:
             raise AuthnError({
                 'code': 'invalid_claims',
-                'description': 'Incorrect claims. Please, check the audience and issuer.'
+                'description':
+                    'Incorrect claims. Please, check the audience and issuer.'
             }, 401)
         except Exception:
             raise AuthnError({
