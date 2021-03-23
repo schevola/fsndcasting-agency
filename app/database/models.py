@@ -15,14 +15,37 @@ def setup_db(app):
     db.init_app(app)
 
 def addTestData():
-    pass
+    print("adding")
+    actor = Actor()
+    actor.name = "billyasdf"
+    actor.age = "32"
+    actor.gender = "M"
+    actor.add()
+    actor = Actor()
+    actor.name = "jimmyasdf"
+    actor.age = "64"
+    actor.gender = "M"
+    actor.add()
+    actor = Actor()
+    actor.name = "samasdf"
+    actor.age = "21"
+    actor.gender = "F"
+    actor.add()
+
 
 def deleteTestData():
-    pass
+    print("deleting")
+    actor = Actor.query.filter_by(name="jimmyasdf").first()
+    actor.delete()
+    actor = Actor.query.filter_by(name="billyasdf").first()
+    actor.delete()
+    actor = Actor.query.filter_by(name="samasdf").first()
+    actor.delete()
 
 def resetDb():
+    print("reseting")
     db.drop_all()
-    db.creaet_all()
+    db.create_all()
 
 
 class Movie(db.Model):
@@ -70,6 +93,7 @@ class Actor(db.Model):
         db.session.commit()
 
     def delete(self):
+        db.session.delete(self)
         db.session.commit()
 
 
