@@ -31,6 +31,18 @@ def addTestData():
     actor.age = "21"
     actor.gender = "F"
     actor.add()
+    movie = Movie()
+    movie.title = "billyasdfMovie"
+    movie.releaseDate = "12/25/2002"
+    movie.add()
+    movie = Movie()
+    movie.title = "jimmyasdfMovie"
+    movie.releaseDate = "01/14/2022"
+    movie.add()
+    movie = Movie()
+    movie.title = "samasdfMovie"
+    movie.releaseDate = "03/02/1978"
+    movie.add()
 
 
 def deleteTestData():
@@ -41,6 +53,12 @@ def deleteTestData():
     actor.delete()
     actor = Actor.query.filter_by(name="samasdf").first()
     actor.delete()
+    movie = Movie.query.filter_by(title="jimmyasdfMovie").first()
+    movie.delete()
+    movie = Movie.query.filter_by(title="billyasdfMovie").first()
+    movie.delete()
+    movie = Movie.query.filter_by(title="samasdfMovie").first()
+    movie.delete()
 
 def resetDb():
     print("reseting")
@@ -57,17 +75,18 @@ class Movie(db.Model):
         return {
             'id': self.id,
             'title': self.title,
-            'release date': self.releaseDate
+            'releaseDate': self.releaseDate
         }
 
     def add(self):
         db.session.add(self)
         db.session.commit()
 
-    def udpate(self):
+    def update(self):
         db.session.commit()
 
     def delete(self):
+        db.session.delete(self)
         db.session.commit()
 
 
@@ -89,7 +108,7 @@ class Actor(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def udpate(self):
+    def update(self):
         db.session.commit()
 
     def delete(self):
