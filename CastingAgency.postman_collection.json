@@ -1,0 +1,1194 @@
+{
+	"info": {
+		"_postman_id": "c31c2c3f-217d-4aad-bba6-2094c673e797",
+		"name": "CastingAgency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Casting Assistant",
+			"item": [
+				{
+					"name": "Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and healthy\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.action).to.eql('Healthy');\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.actors).not.null;\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Actor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\",function(){\r",
+									"    pm.response.to.have.status(401);\r",
+									"})\r",
+									"pm.test(\"invalid permissions\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(false);\r",
+									"    pm.expect(responseJson.errorCode).to.eql(\"Invalid_Permissions\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jessica Rabbit\",\r\n    \"age\": 22,\r\n    \"gender\": \"F\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Actor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\",function(){\r",
+									"    pm.response.to.have.status(401);\r",
+									"})\r",
+									"pm.test(\"invalid permissions\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(false);\r",
+									"    pm.expect(responseJson.errorCode).to.eql(\"Invalid_Permissions\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jessica Babbit\",\r\n    \"age\": 32,\r\n    \"gender\": \"M\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors/1",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Actor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\",function(){\r",
+									"    pm.response.to.have.status(401);\r",
+									"})\r",
+									"pm.test(\"invalid permissions\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(false);\r",
+									"    pm.expect(responseJson.errorCode).to.eql(\"Invalid_Permissions\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors/1",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Movies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.movies).not.null;\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\",function(){\r",
+									"    pm.response.to.have.status(401);\r",
+									"})\r",
+									"pm.test(\"invalid permissions\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(false);\r",
+									"    pm.expect(responseJson.errorCode).to.eql(\"Invalid_Permissions\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Ghost Jailers II\",\r\n    \"releaseDate\": \"05/01/1992\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\",function(){\r",
+									"    pm.response.to.have.status(401);\r",
+									"})\r",
+									"pm.test(\"invalid permissions\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(false);\r",
+									"    pm.expect(responseJson.errorCode).to.eql(\"Invalid_Permissions\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Ghost Jailers III\",\r\n    \"releaseDate\": \"05/09/1992\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies/1",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\",function(){\r",
+									"    pm.response.to.have.status(401);\r",
+									"})\r",
+									"pm.test(\"invalid permissions\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(false);\r",
+									"    pm.expect(responseJson.errorCode).to.eql(\"Invalid_Permissions\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies/1",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVZclR5NG04ZmIwbVZGWmtRVl9EUSJ9.eyJpc3MiOiJodHRwczovL3NjaGV2b2xhLWNvZmZlZS1zaG9wLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2MDU5MjIzZDhhMjRkNzAwNzBlZmUwNGMiLCJhdWQiOiJjYXN0aW5nQWdlbmN5IiwiaWF0IjoxNjE2NDgzNjI0LCJleHAiOjE2MTY1NzAwMjQsImF6cCI6Ikl6NXpPR1hXWm03Sk1VbDVRYm1XUWZuQUFJMGU2MEpGIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyJdfQ.k-vyNoj0sP2aCKi-6IEtSkiJTpz6D2wOz-j91dQSeuPnafGyPIUOhsGFPoW51lo9rMrZs6iZ7nPkRi-xsf9xhS0DU3QgZz1Rh3qwx_mYlzC16GljQ1qNVn8h_mGXWgX-40i6aYo-YLd2oVZ1nycNRI2s5XcJfiBS_r9XFOSa_euDSn7yNcLBAgJnnMFabGKs_V7WtpEr6Xpm-GUufWL-3LFx8nWS5NGy2SCmRwa9XYReCuhmynIMRJPBGKPpfesw2yh26ZG9TOe1z8Yvs_LaKPbKoQSS4Y31_O3idd3YxjN5f0Bp-xsDUSUBO7lJ99-8lqngg2EIpTr1JPXaRlVWCw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Casting Director",
+			"item": [
+				{
+					"name": "Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and healthy\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.action).to.eql('Healthy');\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.actors).not.null;\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Actor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"    postman.setEnvironmentVariable(\"actorId\", responseJson.actor.id);\r",
+									"    pm.expect(responseJson.actor.age).to.eql(22);\r",
+									"    pm.expect(responseJson.actor.gender).to.eql(\"F\");\r",
+									"    pm.expect(responseJson.actor.name).to.eql(\"Jessica Rabbit\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jessica Rabbit\",\r\n    \"age\": 22,\r\n    \"gender\": \"F\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Actor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"    postman.setEnvironmentVariable(\"actorId\", responseJson.actor.id);\r",
+									"    pm.expect(responseJson.actor.age).to.eql(32);\r",
+									"    pm.expect(responseJson.actor.gender).to.eql(\"M\");\r",
+									"    pm.expect(responseJson.actor.name).to.eql(\"Jessica Babbit\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jessica Babbit\",\r\n    \"age\": 32,\r\n    \"gender\": \"M\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors/{{actorId}}",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors",
+								"{{actorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Actor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors/{{actorId}}",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors",
+								"{{actorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Movies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.movies).not.null;\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\",function(){\r",
+									"    pm.response.to.have.status(401);\r",
+									"})\r",
+									"pm.test(\"invalid permissions\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(false);\r",
+									"    pm.expect(responseJson.errorCode).to.eql(\"Invalid_Permissions\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Ghost Jailers II\",\r\n    \"releaseDate\": \"05/01/1992\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"    postman.setEnvironmentVariable(\"movieId\", responseJson.movie.id);\r",
+									"    pm.expect(responseJson.movie.releaseDate).to.eql(\"05/01/1988\");\r",
+									"    pm.expect(responseJson.movie.title).to.eql(\"Ghost Jailers\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Ghost Jailers\",\r\n    \"releaseDate\": \"05/01/1988\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies/1",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\",function(){\r",
+									"    pm.response.to.have.status(401);\r",
+									"})\r",
+									"pm.test(\"invalid permissions\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(false);\r",
+									"    pm.expect(responseJson.errorCode).to.eql(\"Invalid_Permissions\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies/1",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVZclR5NG04ZmIwbVZGWmtRVl9EUSJ9.eyJpc3MiOiJodHRwczovL3NjaGV2b2xhLWNvZmZlZS1zaG9wLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2MDU5MjFkNmVhNDM3ZTAwNjg2M2ViNjYiLCJhdWQiOiJjYXN0aW5nQWdlbmN5IiwiaWF0IjoxNjE2NDgzNzUxLCJleHAiOjE2MTY1NzAxNTEsImF6cCI6Ikl6NXpPR1hXWm03Sk1VbDVRYm1XUWZuQUFJMGU2MEpGIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyJdfQ.mJSOwFgqp4y3Sq1qIY4lkEtPni4XT0Psm9d7DSu7sVo4JgSfI7RlWjYVRNz5W_qOxKJlzL3TLtJDCcgbdopsw2gupod6u_K7Ven6vVcc2oi75Q_ggzQZFAa2ijL8xXSNwf9mPV7Ix7l9MVGms_F_LqAH_LwWm3kuUiWsYn4OLFoG2qmLGgyQ8Bi-KTZnJqi9UESfKrhGsD_PksTAhZ0ctrg8jZaOAsREv7uOFBff3OthWG2mzf3MsK7SfZTSxcgmaTg7W_DlD-wqQ_VFWumJU-PUl_l5ZAJBOCE1QFmXMjs1nFYGnUEisml47sv7kby7EUH7NIoPWv6FVO3pPTMkAg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Executive Producer",
+			"item": [
+				{
+					"name": "Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and healthy\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.action).to.eql('Healthy');\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.actors).not.null;\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Actor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"    postman.setEnvironmentVariable(\"actorId\", responseJson.actor.id);\r",
+									"    pm.expect(responseJson.actor.age).to.eql(22);\r",
+									"    pm.expect(responseJson.actor.gender).to.eql(\"F\");\r",
+									"    pm.expect(responseJson.actor.name).to.eql(\"Jessica Rabbit\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jessica Rabbit\",\r\n    \"age\": 22,\r\n    \"gender\": \"F\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Actor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"    postman.setEnvironmentVariable(\"actorId\", responseJson.actor.id);\r",
+									"    pm.expect(responseJson.actor.age).to.eql(32);\r",
+									"    pm.expect(responseJson.actor.gender).to.eql(\"M\");\r",
+									"    pm.expect(responseJson.actor.name).to.eql(\"Jessica Babbit\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jessica Babbit\",\r\n    \"age\": 32,\r\n    \"gender\": \"M\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors/{{actorId}}",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors",
+								"{{actorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Actor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/actors/{{actorId}}",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"actors",
+								"{{actorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Movies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.movies).not.null;\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"    postman.setEnvironmentVariable(\"movieId\", responseJson.movie.id);\r",
+									"    pm.expect(responseJson.movie.releaseDate).to.eql(\"05/01/1992\");\r",
+									"    pm.expect(responseJson.movie.title).to.eql(\"Ghost Jailers II\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Ghost Jailers II\",\r\n    \"releaseDate\": \"05/01/1992\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"    postman.setEnvironmentVariable(\"movieId\", responseJson.movie.id);\r",
+									"    pm.expect(responseJson.movie.releaseDate).to.eql(\"05/09/1992\");\r",
+									"    pm.expect(responseJson.movie.title).to.eql(\"Ghost Jailers III\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Ghost Jailers III\",\r\n    \"releaseDate\": \"05/09/1992\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies/{{movieId}}",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies",
+								"{{movieId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"pm.test(\"success true and actors not null\",function(){\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.success).to.eql(true);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://fsndcasting-agency.herokuapp.com/movies/{{movieId}}",
+							"host": [
+								"https://fsndcasting-agency.herokuapp.com"
+							],
+							"path": [
+								"movies",
+								"{{movieId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVZclR5NG04ZmIwbVZGWmtRVl9EUSJ9.eyJpc3MiOiJodHRwczovL3NjaGV2b2xhLWNvZmZlZS1zaG9wLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2MDU5MjIwYTNhZDU3YTAwNjkxZmIzMWIiLCJhdWQiOiJjYXN0aW5nQWdlbmN5IiwiaWF0IjoxNjE2NDgzODQ2LCJleHAiOjE2MTY1NzAyNDYsImF6cCI6Ikl6NXpPR1hXWm03Sk1VbDVRYm1XUWZuQUFJMGU2MEpGIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllcyJdfQ.blTUDYzqDBGfg2lNAS5qL6SAOv98Ql-rgGPx_rrmWW7sYTV4ouRuM9sb28fZXEBNg_XDRczeE_bvBXDX1tWwYg0OUxAls_mRkanC3Io_bwNrfNR9cjowYwYBgYvd_3txRdf4vE6usP7f1leKOuETQsrtSJqRlmvaFSm0OsuqCUJyAkVUebkbGWcoY-P5nnL2ajaNZ7fc01KFMWd6Wh6Lh_3bo8dALICyzuwASCyq0gvCesbC5beP3zf38tejuOlPZXkjfBrUywcrSPnGtfmE_8SgJHZoQvYW1OZVhfKeYe4IW8H7FTVEBSp_Vk8itGIYPeA_osIFmaPssGt-U_9-Mg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
