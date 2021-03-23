@@ -31,6 +31,8 @@ python run.py
 - Import the postman collection `./CastingAgency.postman_collection.json`
 - Run the collection runner with the CastingAgency Collection, tests are setup to store ids, for patch and delete process when required
 
+ServerUrl:
+https://fsndcasting-agency.herokuapp.com
 
 Endpoints
 ```
